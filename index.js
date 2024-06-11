@@ -1,1 +1,3 @@
-console.log("hejka karolcia uwu");
+const { listContacts } = require("./contacts.js");
+
+console.log(listContacts());
