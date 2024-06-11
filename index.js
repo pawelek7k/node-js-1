@@ -4,40 +4,44 @@ const {
   removeContact,
   addContact,
 } = require("./contacts.js");
-const argv = require("yargs").argv;
+const yargs = require("yargs");
 
-// const logList = async () => {
-//   console.log(await listContacts());
-//   console.log(await getContactById("qdggE76Jtbfd9eWJHrssH"));
-//   console.log(await removeContact("drsAJ4SHPYqZeG-83QTVW"));
-//   console.log(
-//     await addContact(
-//       "Karol",
-//       "karolcwaniaczek847892@gmail.com",
-//       "(748) 206-2688"
-//     )
-//   );
-// };
-
-// logList();
-
-// TODO: refaktor
-function invokeAction({ action, id, name, email, phone }) {
+async function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      listContacts();
+      try {
+        const contacts = await listContacts();
+        console.log(contacts);
+      } catch (error) {
+        console.error("Failed to list contacts:", error);
+      }
       break;
 
     case "get":
-      getContactById(id);
+      try {
+        const contact = await getContactById(id);
+        console.log(contact);
+      } catch (error) {
+        console.error("Failed to get contact:", error);
+      }
       break;
 
     case "add":
-      addContact(name, email, phone);
+      try {
+        const newContact = await addContact(name, email, phone);
+        console.log(newContact);
+      } catch (error) {
+        console.error("Failed to add contact:", error);
+      }
       break;
 
     case "remove":
-      removeContact(id);
+      try {
+        const updatedContacts = await removeContact(id);
+        console.log(updatedContacts);
+      } catch (error) {
+        console.error("Failed to remove contact:", error);
+      }
       break;
 
     default:
@@ -45,4 +49,5 @@ function invokeAction({ action, id, name, email, phone }) {
   }
 }
 
-invokeAction(argv);
+const action = argv._[0];
+invokeAction({ action, ...argv });
