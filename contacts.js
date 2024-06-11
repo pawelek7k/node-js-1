@@ -7,9 +7,9 @@ const contactsPath = path.basename(__dirname + "\\contacts.json");
 async function listContacts() {
   try {
     const results = await fs.readFile(contactsPath);
-    console.log(results.toString());
+    return results.toString();
   } catch (e) {
-    console.error(e);
+    return e;
   }
 }
 

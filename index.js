@@ -1,3 +1,7 @@
 const { listContacts } = require("./contacts.js");
 
-console.log(listContacts());
+const logList = async () => {
+  console.log(await listContacts());
+};
+
+logList();
