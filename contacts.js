@@ -1,4 +1,5 @@
 const fs = require("fs").promises;
+const { v4: uuidv4 } = require("uuid");
 const path = require("node:path");
 
 const contactsPath = path.basename(__dirname + "\\contacts.json");
@@ -23,12 +24,24 @@ async function getContactById(contactId) {
   }
 }
 
-function removeContact(contactId) {
-  // ...twój kod
+async function removeContact(contactId) {
+  try {
+    const contacts = JSON.parse(await listContacts());
+    const contact = contacts.filter((c) => c.id !== contactId);
+    return contact;
+  } catch (e) {
+    return e;
+  }
 }
 
-function addContact(name, email, phone) {
-  // ...twój kod
+async function addContact(name, email, phone) {
+  try {
+    const contacts = JSON.parse(await listContacts());
+    const contact = contacts.push({ id: uuidv4(), name, email, phone });
+    return contacts;
+  } catch (e) {
+    return e;
+  }
 }
 
-module.exports = { listContacts, getContactById, removeContact };
+module.exports = { listContacts, getContactById, removeContact, addContact };
