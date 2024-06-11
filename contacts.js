@@ -13,8 +13,14 @@ async function listContacts() {
   }
 }
 
-function getContactById(contactId) {
-  // ...twój kod
+async function getContactById(contactId) {
+  try {
+    const contacts = JSON.parse(await listContacts());
+    const contact = contacts.find((c) => c.id === contactId);
+    return contact;
+  } catch (e) {
+    return e;
+  }
 }
 
 function removeContact(contactId) {
@@ -25,4 +31,4 @@ function addContact(name, email, phone) {
   // ...twój kod
 }
 
-module.exports = { listContacts };
+module.exports = { listContacts, getContactById, removeContact };
