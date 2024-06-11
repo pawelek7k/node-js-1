@@ -4,7 +4,7 @@ const path = require("node:path");
 
 const contactsPath = path.basename(__dirname + "\\contacts.json");
 
-// TODO: udokumentuj każdą funkcję
+// funkcja zwraca tablice obiektów z pliku contacts.json
 async function listContacts() {
   try {
     const results = await fs.readFile(contactsPath);
@@ -14,6 +14,7 @@ async function listContacts() {
   }
 }
 
+// funkcja wyszukuje w tablicy obiektu o id contactId
 async function getContactById(contactId) {
   try {
     const contacts = JSON.parse(await listContacts());
@@ -24,6 +25,7 @@ async function getContactById(contactId) {
   }
 }
 
+// funkcja usuwa kontakt o id contactId
 async function removeContact(contactId) {
   try {
     const contacts = JSON.parse(await listContacts());
@@ -34,6 +36,7 @@ async function removeContact(contactId) {
   }
 }
 
+// funkcja dodaje kontakt z danymi, id jest generowane dzięki uuid
 async function addContact(name, email, phone) {
   try {
     const contacts = JSON.parse(await listContacts());
